@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/ESL_LearnWAP/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="台灣兒童美語協會ESL美語教學軟體">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="台灣兒童美語協會ESL美語教學軟體">
+  <link rel="apple-touch-icon" href="assets/icons/word_icon.svg">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/word_icon.svg">
+
+  <title>台灣兒童美語協會ESL美語教學軟體</title>
+  <link rel="manifest" href="manifest.json">
+
+  <!-- 資源預載入聲明 -->
+  <!-- V 系列資源預載入 -->
+  <link rel="prefetch" href="assets/Book_data/V1_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/V2_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/V3_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/V4_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/V5_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/V6_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/V7_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/V8_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/V9_book_data.json">
+  
+  <!-- P 系列資源預載入 -->
+  <link rel="prefetch" href="assets/Book_data/P1_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/P2_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/P3_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/P4_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/P5_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/P6_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/P7_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/P8_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/P9_book_data.json">
+  
+  <!-- T 系列資源預載入 -->
+  <link rel="prefetch" href="assets/Book_data/T1-1_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T1-2_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T1-3_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T1-4_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T1-5_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T2-1_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T2-2_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T2-3_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T2-4_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T2-5_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T3-1_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T3-2_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T3-3_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T3-4_book_data.json">
+  <link rel="prefetch" href="assets/Book_data/T3-5_book_data.json">
+
+  <!-- 環境變數設定 -->
+  <script>
+    // 直接在 window 上定義環境變數，替代 .env 檔案
+    window.flutterEnvironment = {
+      APP_NAME: '台灣兒童美語協會ESL美語教學軟體',
+      APP_VERSION: '1.0.0',
+      API_BASE_URL: 'https://api.example.com',
+      API_TIMEOUT: '30000',
+      AUDIO_CACHE_SIZE: '100',
+      AUDIO_CACHE_DURATION: '3600',
+      GAME_MAX_LEVEL: '10',
+      GAME_DIFFICULTY_INTERVAL: '2'
+    };
+    
+    // 修復 AssetManifest 問題的輔助函數
+    window.ensureBookAssetsLoaded = function() {
+      try {
+        // 如果執行到 Flutter 初始化後，我們手動設置一些關鍵資源的存在性
+        console.log('正在確保所有書籍資源已加載...');
+        
+        // 所有書籍ID
+        var allBookIds = [
+          'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9',
+          'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9',
+          'T1-1', 'T1-2', 'T1-3', 'T1-4', 'T1-5',
+          'T2-1', 'T2-2', 'T2-3', 'T2-4', 'T2-5',
+          'T3-1', 'T3-2', 'T3-3', 'T3-4', 'T3-5'
+        ];
+        
+        // 追蹤載入狀態
+        var loadedCount = 0;
+        var failedCount = 0;
+        
+        // 為每個ID創建資源預載入請求 - 使用非阻塞方式
+        allBookIds.forEach(function(id) {
+          try {
+            var dataUrl = 'assets/Book_data/' + id + '_book_data.json';
+            
+            // 創建資源請求 - 使用 GET 而不是 fetch，避免可能的阻塞問題
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', dataUrl, true); // 非同步請求
+            xhr.onload = function() {
+              if (xhr.status >= 200 && xhr.status < 300) {
+                loadedCount++;
+                console.log('資源預載入成功: ' + dataUrl);
+              } else {
+                failedCount++;
+                console.log('資源預載入失敗: ' + dataUrl + ' - 狀態碼: ' + xhr.status);
+              }
+            };
+            xhr.onerror = function() {
+              failedCount++;
+              console.log('資源預載入錯誤: ' + dataUrl);
+            };
+            xhr.send();
+            
+            // 簡單檢查封面圖片 - 使用 Image 預載入
+            var coverUrl = 'assets/Books/' + id + '/' + id + '_00-00.jpg';
+            var img = new Image();
+            img.onload = function() {
+              console.log('圖片預載入成功: ' + coverUrl);
+            };
+            img.onerror = function() {
+              console.log('圖片預載入失敗: ' + coverUrl);
+            };
+            img.src = coverUrl;
+          } catch (itemError) {
+            console.log('處理資源項目時出錯: ' + id + ' - ' + itemError);
+          }
+        });
+        
+        // 返回操作成功
+        return true;
+      } catch (e) {
+        console.error('資源預載入過程中發生錯誤: ' + e);
+        // 即使出錯也返回成功，不阻止應用程序啟動
+        return true;
+      }
+    };
+    
+    // 資源檢測輔助函數 - 可供 Flutter 調用
+    window.checkResourceExists = function(resourcePath) {
+      return new Promise(function(resolve, reject) {
+        if (resourcePath.endsWith('.json')) {
+          // 檢查 JSON 資源
+          fetch(resourcePath)
+            .then(function(response) {
+              resolve(response.ok);
+            })
+            .catch(function() {
+              resolve(false);
+            });
+        } else if (resourcePath.match(/\.(jpg|jpeg|png|gif)$/i)) {
+          // 檢查圖像資源
+          var img = new Image();
+          img.onload = function() { resolve(true); };
+          img.onerror = function() { resolve(false); };
+          img.src = resourcePath;
+        } else {
+          // 其他資源類型
+          resolve(false);
+        }
+      });
+    };
+  </script>
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    var serviceWorkerVersion = null;
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
+</head>
+<body>
+  <script>
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          // 首先初始化 Flutter 引擎
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            // 在應用程序啟動前嘗試預載入資源，但不阻止應用啟動
+            console.log('Flutter 引擎初始化完成，開始預載入資源...');
+            try {
+              // 使用 setTimeout 確保資源載入不阻塞 UI
+              setTimeout(function() {
+                try {
+                  if (window.ensureBookAssetsLoaded) {
+                    window.ensureBookAssetsLoaded();
+                  }
+                } catch(e) {
+                  console.error('資源預載入失敗 (非阻塞): ' + e);
+                }
+              }, 100);
+            } catch(e) {
+              console.error('排程資源預載入失敗 (忽略): ' + e);
+            }
+            
+            // 無論資源載入成功與否，都繼續啟動應用
+            console.log('正在啟動 Flutter 應用程序...');
+            appRunner.runApp();
+          }).catch(function(error) {
+            console.error('初始化 Flutter 引擎時出錯: ' + error);
+            // 顯示錯誤信息給用戶
+            document.body.innerHTML = '<div style="color:red;font-size:16px;padding:20px;">初始化應用程序時出錯。請刷新頁面或聯繫管理員。</div>';
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

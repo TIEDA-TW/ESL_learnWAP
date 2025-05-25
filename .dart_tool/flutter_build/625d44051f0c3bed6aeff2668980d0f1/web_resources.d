@@ -1,0 +1,1 @@
+ build\\web\\manifest.json:  D:\\ESL_LearnWAP\\web\\index.html D:\\ESL_LearnWAP\\web\\manifest.json

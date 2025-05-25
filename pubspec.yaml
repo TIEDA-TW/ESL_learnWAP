@@ -1,0 +1,81 @@
+name: english_learning_app
+description: A children's English learning app with reading and recording features.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  csv: ^5.1.1
+  audioplayers: ^6.4.0
+  record: ^5.0.4
+  record_web: ^1.1.4
+  idb_shim: ^2.6.1+7
+  path_provider: ^2.1.2
+  flutter_sound: ^9.2.13
+  flutter_sound_web: ^9.2.13
+  flutter_sound_platform_interface: ^9.2.13
+  shared_preferences: ^2.5.3
+  file_picker: ^6.1.1
+  flutter_tts: ^4.0.2
+  google_fonts: ^6.1.0
+  auto_size_text: ^3.0.0
+  flutter_svg: ^2.1.0
+  flutter_dotenv: ^5.1.0
+  flutter_bloc: ^8.1.3
+  dio: ^5.4.0
+  flutter_secure_storage: ^9.0.0
+  crypto: ^3.0.3 # Added crypto package
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - .env
+    - assets/Book_data/
+    - assets/Books/V1/
+    - assets/Books/V2/
+    - assets/Books/V3/
+    - assets/Books/V4/
+    - assets/Books/V5/
+    - assets/Books/V6/
+    - assets/Books/V7/
+    - assets/Books/V8/
+    - assets/Books/V9/
+    - assets/Books/P1/
+    - assets/Books/P2/
+    - assets/Books/P3/
+    - assets/Books/P4/
+    - assets/Books/P5/
+    - assets/Books/P6/
+    - assets/Books/P7/
+    - assets/Books/P8/
+    - assets/Books/P9/
+    - assets/Books/T1-1/
+    - assets/Books/T1-2/
+    - assets/Books/T1-3/
+    - assets/Books/T1-4/
+    - assets/Books/T1-5/
+    - assets/Books/T2-1/
+    - assets/Books/T2-2/
+    - assets/Books/T2-3/
+    - assets/Books/T2-4/
+    - assets/Books/T2-5/
+    - assets/Books/T3-1/
+    - assets/Books/T3-2/
+    - assets/Books/T3-3/
+    - assets/Books/T3-4/
+    - assets/Books/T3-5/
+    - assets/audio/en/
+    - assets/audio/zh/
+    - assets/images/
+    - assets/icons/word_icon.svg
+    - assets/fonts/

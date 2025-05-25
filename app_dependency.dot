@@ -1,0 +1,112 @@
+digraph G {
+  rankdir=LR;
+  node [shape=box, style=filled, fillcolor=lightblue, fontsize=12];
+  
+  /* 子系統分組 */
+  subgraph cluster_ui {
+    label="UI介面";
+    style=filled;
+    color=lightgrey;
+    node [style=filled, fillcolor=skyblue];
+    
+    AppEntry [label="main.dart\nImprovedApp"];
+    LoginScreen [label="login_screen.dart\n登入頁面"];
+    HomeScreen [label="home_screen.dart\n主頁面"];
+    ReaderScreen [label="reader_screen.dart\n閱讀器頁面"];
+    Settings [label="improved_settings_screen.dart\n設置頁面"];
+    BookCard [label="book_card.dart\n書籍卡片"];
+    ActivityCard [label="activity_card.dart\n活動卡片"];
+    ReadingControls [label="reading_controls.dart\n閱讀控制元件"];
+    InteractiveText [label="interactive_text.dart\n互動文本元件"];
+  }
+  
+  subgraph cluster_data {
+    label="資料匯入和管理";
+    style=filled;
+    color=lightgrey;
+    node [style=filled, fillcolor=lightgreen];
+    
+    BookModel [label="book_model.dart\n書籍模型"];
+    BookModelsFixed [label="book_models_fixed.dart\n修正後的書籍模型"];
+    StorageService [label="storage_service.dart\n儲存服務"];
+    UserService [label="user_service_improved.dart\n使用者服務"];
+    BookUtils [label="book_utils.dart\n書籍工具"];
+  }
+  
+  subgraph cluster_reading {
+    label="閱讀和語音功能";
+    style=filled;
+    color=lightgrey;
+    node [style=filled, fillcolor=gold];
+    
+    AudioService [label="audio_service_bridge.dart\n音頻服務橋接器"];
+    TtsService [label="tts_service.dart\nTTS服務"];
+    SpeechService [label="speech_service_bridge.dart\n語音服務橋接器"];
+    TranslationService [label="translation_service.dart\n翻譯服務"];
+    ReadingMode [label="reading_mode.dart\n閱讀模式"];
+  }
+  
+  subgraph cluster_games {
+    label="遊戲和學習進度";
+    style=filled;
+    color=lightgrey;
+    node [style=filled, fillcolor=lightpink];
+    
+    GameMenuScreen [label="game_menu_screen.dart\n遊戲選單"];
+    GameService [label="game_service.dart\n遊戲服務"];
+    FlashcardScreen [label="flashcard_screen.dart\n單字卡片頁面"];
+    ProgressScreen [label="progress_screen.dart\n學習進度頁面"];
+    PronunciationPractice [label="pronunciation_practice_screen.dart\n發音練習頁面"];
+  }
+  
+  /* 關聯關係 */
+  /* UI 組件依賴關係 */
+  AppEntry -> LoginScreen;
+  LoginScreen -> HomeScreen;
+  HomeScreen -> BookCard;
+  HomeScreen -> ActivityCard;
+  HomeScreen -> ReaderScreen;
+  HomeScreen -> GameMenuScreen;
+  HomeScreen -> FlashcardScreen;
+  HomeScreen -> ProgressScreen;
+  HomeScreen -> PronunciationPractice;
+  HomeScreen -> Settings;
+  ReaderScreen -> ReadingControls;
+  ReaderScreen -> InteractiveText;
+  
+  /* 模型和服務依賴 */
+  ReaderScreen -> BookModel;
+  ReaderScreen -> AudioService;
+  ReaderScreen -> SpeechService;
+  ReaderScreen -> StorageService;
+  ReaderScreen -> TranslationService;
+  ReaderScreen -> TtsService;
+  ReaderScreen -> ReadingMode;
+  
+  HomeScreen -> BookModel;
+  HomeScreen -> StorageService;
+  HomeScreen -> UserService;
+  HomeScreen -> GameService;
+  
+  /* 資料匯入依賴關係 */
+  StorageService -> BookModel;
+  StorageService -> BookModelsFixed;
+  UserService -> StorageService;
+  BookUtils -> BookModel;
+  
+  /* 功能模塊依賴關係 */
+  GameService -> StorageService;
+  GameService -> BookModel;
+  TranslationService -> StorageService;
+  AudioService -> TtsService;
+  PronunciationPractice -> SpeechService;
+  PronunciationPractice -> TtsService;
+  FlashcardScreen -> BookModel;
+  FlashcardScreen -> StorageService;
+  ProgressScreen -> UserService;
+  ProgressScreen -> BookModel;
+  
+  /* 跨模組依賴 */
+  SpeechService -> AudioService;
+  GameMenuScreen -> GameService;
+} 
